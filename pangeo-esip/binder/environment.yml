@@ -2,50 +2,50 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
-  # core scipy packages
+  - pandoc
+  # core scipy 
   - numpy
   - scipy
   - matplotlib
   - pandas
   - xarray
-  - sparse
-  - sympy
+  - python-gist
+  - fastparquet
   # data science stuff
   - scikit-image
   - scikit-learn
   - dask-ml
-  - tensorflow
-  - keras
   - pytorch-cpu
   # pyviz
-  - holoviews
-  - panel
-  - jupyter-panel-proxy
-  - geoviews
   - hvplot
+  - holoviews
   - geoviews
+  - panel
   - datashader
-  - seaborn
-  - altair
-  - descartes
-  - folium
-  - vega
-  - vega_datasets
-  - palettable
-  - cmocean
   # geospatial
   - iris
   - cartopy
-  - basemap
   - geopandas
+  - sat-search
+  - sat-stac
   - rasterio
-  - netcdf4
-  - erddapy
-  - pydap
-  - h5py
-  - h5netcdf
   - regionmask
   - rio-cogeo
+  - rioxarray
+  - netcdf4
+  - h5py
+  - h5netcdf
+  - folium
+  # ocean/atmos stuff
+  - siphon
+  - utide
+  - pocean-core
+  - owslib
+  - ioos-tools
+  - geolinks
+  - cftime
+  - pyoos
+  - timeout-decorator
   # geoscience-related
   - climlab
   - metpy
@@ -56,37 +56,25 @@ dependencies:
   - xesmf
   - windspharm
   # intake-related
-  - intake
+  - intake>=0.5.4
   - intake-xarray
   - intake-esm
-  - fsspec
   - intake-stac
-  - sat-stac
-  - sat-search
   # zarr-related
   - zarr
   - numcodecs
   - python-blosc
   - lz4
-  - gcsfs>=0.5.2
+  - gcsfs
   - s3fs
-  - tiledb-py
+  - fsspec
   # jupyter-related
   - ipyleaflet
-  - watermark
   # xarray-related
   - xgcm
   - xrft
-  - xhistogram
-  - xlrd
-  - xrviz
-  - climpred
-  - pytide
-  - pyinterp
-  # misc
-  - python-wget
-  - prefect
+  - graphviz
+  - vim
+  - pip
   - pip:
-    - intake_geopandas
-    - git+https://github.com/NCAR/intake-esm.git@master
-    - git+https://github.com/hhuangwx/cmaps.git#egg=cmaps
+    - git+https://github.com/HDFGroup/h5pyd.git

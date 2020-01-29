@@ -23,11 +23,24 @@ def become(uid):
         return func
     return wrap
 
-
 def binder_path(path):
-    if os.path.exists(os.path.join(ONBUILD_CONTENTS_DIR, 'binder')):
-        return os.path.join(ONBUILD_CONTENTS_DIR, 'binder', path)
-    return os.path.join(ONBUILD_CONTENTS_DIR, path)
+    has_binder = os.path.isdir(os.path.join(ONBUILD_CONTENTS_DIR, "binder"))
+    has_dotbinder = os.path.isdir(os.path.join(ONBUILD_CONTENTS_DIR, ".binder"))
+
+    if has_binder and has_dotbinder:
+        raise RuntimeError(
+            "The repository contains both a 'binder' and a '.binder' "
+            "directory. However they are exclusive."
+        )
+
+    if has_dotbinder:
+        binder_dir =  ".binder"
+    elif has_binder:
+        binder_dir = "binder"
+    else:
+        binder_dir = ""
+
+    return os.path.join(ONBUILD_CONTENTS_DIR, binder_dir, path)
 
 
 @become(NB_UID)
@@ -36,7 +49,7 @@ def apply_environment():
     env_path = binder_path('environment.yml')
     if os.path.exists(env_path):
         return [
-            f'conda env update -p {NB_PYTHON_PREFIX} -f {env_path}',
+            f'conda env update --verbose -p {NB_PYTHON_PREFIX} -f {env_path}',
             f'conda clean --all -f -y',
             f'conda list -p {NB_PYTHON_PREFIX}',
             f'rm -rf /srv/conda/pkgs'
